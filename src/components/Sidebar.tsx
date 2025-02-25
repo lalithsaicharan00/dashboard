@@ -56,9 +56,9 @@ const Sidebar: React.FC<SidebarProps> = ({
     <aside
       className={`fixed inset-y-0 left-0 ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
-      } ${isExpanded ? 'w-64' : 'w-20'} flex flex-col border-r transition-all transform duration-200 ease-in-out bg-gray-900 border-gray-700`}
+      } ${isExpanded ? 'w-64' : 'w-20'} flex flex-col border-r transition-all transform duration-200 ease-in-out bg-white border-gray-200`}
     >
-      <div className="p-4 border-b border-gray-700">
+      <div className="p-4 border-b border-gray-200">
         <button
           onMouseEnter={() => {
             onMainSessionClick();
@@ -67,7 +67,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           className={`w-full mb-4 flex items-center px-4 py-2 rounded-md transition-colors ${
             activeSection === 'main'
               ? 'bg-[#5A9B91] text-white'
-              : 'bg-gray-800 text-gray-200 hover:bg-gray-700'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
           }`}
         >
           <MessageSquare className="w-5 h-5 mr-2" />
@@ -84,11 +84,11 @@ const Sidebar: React.FC<SidebarProps> = ({
               }}
               className={`w-full flex items-center justify-between px-3 py-2 rounded-md transition-colors ${
                 activeConversation === conversation.id
-                  ? 'bg-gray-800'
-                  : 'hover:bg-gray-800'
+                  ? 'bg-gray-100'
+                  : 'hover:bg-gray-50'
               }`}
             >
-              <div className="flex items-center text-gray-300">
+              <div className="flex items-center text-gray-700">
                 {conversation.type === 'side' && <GitBranch className="w-4 h-4 mr-2 text-[#5A9B91]" />}
                 {conversation.type === 'child' && <Settings className="w-4 h-4 mr-2 text-[#5A9B91]" />}
                 <span>{conversation.title}</span>
@@ -103,21 +103,21 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         <div className="mt-4 space-y-2">
-          <button className="w-full flex items-center px-3 py-2 rounded-md text-gray-300 hover:bg-gray-800">
+          <button className="w-full flex items-center px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
             <Settings className="w-4 h-4 mr-2 text-[#5A9B91]" />
             <span>Packs</span>
             <span className="ml-2 text-xs text-gray-500">(coming soon...)</span>
           </button>
-          <button className="w-full flex items-center px-3 py-2 rounded-md text-gray-300 hover:bg-gray-800">
+          <button className="w-full flex items-center px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
             <MessageSquare className="w-4 h-4 mr-2 text-[#5A9B91]" />
             <span>Messenger</span>
             <span className="ml-2 text-xs text-gray-500">(coming soon...)</span>
           </button>
-          <button className="w-full flex items-center px-3 py-2 rounded-md text-gray-300 hover:bg-gray-800">
+          <button className="w-full flex items-center px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
             <GitBranch className="w-4 h-4 mr-2 text-[#5A9B91]" />
             <span>Custom Chatbot</span>
           </button>
-          <button className="w-full flex items-center px-3 py-2 rounded-md text-gray-300 hover:bg-gray-800">
+          <button className="w-full flex items-center px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
             <Settings className="w-4 h-4 mr-2 text-[#5A9B91]" />
             <span>Family Pack</span>
           </button>

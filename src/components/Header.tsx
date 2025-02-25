@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTheme } from './ThemeProvider';
-import { ChevronDown, Sun, Moon, Menu, RefreshCw, Bell, CheckSquare } from 'lucide-react';
+import { ChevronDown, Moon, Menu, RefreshCw, Bell, CheckSquare } from 'lucide-react';
 import TaskManager from './TaskManager/TaskManager';
 
 interface HeaderProps {
@@ -18,17 +18,17 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-30 h-16 bg-gray-800 border-gray-700 border-b">
+      <header className="fixed top-0 left-0 right-0 z-30 h-16 bg-white border-gray-200 border-b">
         <div className="h-full px-6 mx-auto max-w-7xl flex items-center justify-between">
           <div className="flex items-center space-x-6">
             <button
               onMouseEnter={onMenuClick}
-              className="text-brand-primary hover:text-brand-primary-hover transition-colors"
+              className="text-gray-700 hover:text-gray-900 transition-colors"
             >
               <Menu className="w-5 h-5" />
             </button>
 
-            <h1 className="text-2xl font-semibold text-brand-primary">
+            <h1 className="text-2xl font-semibold text-gray-900">
               Zoomey
             </h1>
 
@@ -36,9 +36,9 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 onMouseEnter={() => setIsModelDropdownOpen(true)}
                 onMouseLeave={() => setIsModelDropdownOpen(false)}
-                className="flex items-center space-x-2 px-3 py-1.5 rounded-md bg-gray-700 hover:bg-gray-600 transition-colors"
+                className="flex items-center space-x-2 px-3 py-1.5 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors"
               >
-                <span className="text-gray-200">
+                <span className="text-gray-700">
                   {selectedModel.toUpperCase()}
                 </span>
                 <ChevronDown className="w-4 h-4" />
@@ -48,7 +48,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <div 
                   onMouseEnter={() => setIsModelDropdownOpen(true)}
                   onMouseLeave={() => setIsModelDropdownOpen(false)}
-                  className="absolute top-full mt-1 w-40 rounded-md shadow-lg bg-gray-700 border-gray-600 border"
+                  className="absolute top-full mt-1 w-40 rounded-md shadow-lg bg-white border-gray-200 border"
                 >
                   {['gpt4', 'gpt3.5', 'claude'].map(model => (
                     <button
@@ -57,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({
                         setSelectedModel(model);
                         setIsModelDropdownOpen(false);
                       }}
-                      className="w-full text-left px-4 py-2 hover:bg-gray-600 text-gray-200 transition-colors"
+                      className="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-700 transition-colors"
                     >
                       {model.toUpperCase()}
                     </button>
@@ -68,7 +68,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             <button
               onClick={() => setSelectedModel('gpt4')}
-              className="text-brand-primary hover:text-brand-primary-hover transition-colors"
+              className="text-gray-700 hover:text-gray-900 transition-colors"
               title="Reset to default model"
             >
               <RefreshCw className="w-5 h-5" />
@@ -76,43 +76,21 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           <div className="flex items-center space-x-4">
-            <div className="relative">
-              <button
-                className="flex items-center space-x-2 px-3 py-1.5 rounded-md bg-gray-700 hover:bg-gray-600 text-gray-200 transition-colors"
-              >
-                <CheckSquare className="w-5 h-5" />
-                <span>Tasks</span>
-              </button>
-
-              {/* Task Manager Overlay - Always visible */}
-              <div 
-                className="absolute right-0 mt-2 w-96"
-              >
-                <div className="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
-                  <TaskManager 
-                    isExpanded={true} 
-                    onClose={() => {}}
-                    sidebarMode={true}
-                  />
-                </div>
-              </div>
-            </div>
-
             <button
-              className="text-brand-primary hover:text-brand-primary-hover transition-colors"
+              className="text-gray-700 hover:text-gray-900 transition-colors"
             >
-              <Sun className="w-5 h-5" />
+              <Moon className="w-5 h-5" />
             </button>
 
             <button
               onMouseEnter={onNotificationClick}
-              className="text-brand-primary hover:text-brand-primary-hover transition-colors relative"
+              className="text-gray-700 hover:text-gray-900 transition-colors relative"
             >
               <Bell className="w-5 h-5" />
             </button>
 
             <button
-              className="px-4 py-1.5 rounded-md bg-gray-700 hover:bg-gray-600 text-gray-200 transition-colors"
+              className="px-4 py-1.5 rounded-md bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
             >
               Clear Chat
             </button>
@@ -123,6 +101,15 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       </header>
+
+      {/* Task Manager Sidebar - Always visible */}
+      <div className="fixed inset-y-0 right-20 w-96 bg-white border-l border-gray-200 shadow-lg z-40">
+        <TaskManager 
+          isExpanded={true} 
+          onClose={() => {}}
+          sidebarMode={true}
+        />
+      </div>
     </>
   );
 };
