@@ -15,37 +15,10 @@ export const Header: React.FC<HeaderProps> = ({
   const { isDark, toggleTheme } = useTheme();
   const [isModelDropdownOpen, setIsModelDropdownOpen] = useState(false);
   const [selectedModel, setSelectedModel] = useState('gpt4');
-  const [showTaskManager, setShowTaskManager] = useState(false);
-
-  // Add delay to prevent immediate closing
-  let taskManagerTimeout: NodeJS.Timeout;
-  
-  const handleTaskMouseEnter = () => {
-    clearTimeout(taskManagerTimeout);
-    setShowTaskManager(true);
-  };
-
-  const handleTaskMouseLeave = () => {
-    taskManagerTimeout = setTimeout(() => {
-      setShowTaskManager(false);
-    }, 300); // 300ms delay before closing
-  };
-
-  const handleTaskManagerMouseEnter = () => {
-    clearTimeout(taskManagerTimeout);
-  };
-
-  const handleTaskManagerMouseLeave = () => {
-    taskManagerTimeout = setTimeout(() => {
-      setShowTaskManager(false);
-    }, 300);
-  };
 
   return (
     <>
-      <header className={`fixed top-0 left-0 right-0 z-30 h-16 ${
-        isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
-      } border-b`}>
+      <header className="fixed top-0 left-0 right-0 z-30 h-16 bg-gray-800 border-gray-700 border-b">
         <div className="h-full px-6 mx-auto max-w-7xl flex items-center justify-between">
           <div className="flex items-center space-x-6">
             <button
@@ -63,11 +36,9 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 onMouseEnter={() => setIsModelDropdownOpen(true)}
                 onMouseLeave={() => setIsModelDropdownOpen(false)}
-                className={`flex items-center space-x-2 px-3 py-1.5 rounded-md ${
-                  isDark ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'
-                } transition-colors`}
+                className="flex items-center space-x-2 px-3 py-1.5 rounded-md bg-gray-700 hover:bg-gray-600 transition-colors"
               >
-                <span className={isDark ? 'text-gray-200' : 'text-gray-700'}>
+                <span className="text-gray-200">
                   {selectedModel.toUpperCase()}
                 </span>
                 <ChevronDown className="w-4 h-4" />
@@ -77,9 +48,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <div 
                   onMouseEnter={() => setIsModelDropdownOpen(true)}
                   onMouseLeave={() => setIsModelDropdownOpen(false)}
-                  className={`absolute top-full mt-1 w-40 rounded-md shadow-lg ${
-                    isDark ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-200'
-                  } border`}
+                  className="absolute top-full mt-1 w-40 rounded-md shadow-lg bg-gray-700 border-gray-600 border"
                 >
                   {['gpt4', 'gpt3.5', 'claude'].map(model => (
                     <button
@@ -88,9 +57,7 @@ export const Header: React.FC<HeaderProps> = ({
                         setSelectedModel(model);
                         setIsModelDropdownOpen(false);
                       }}
-                      className={`w-full text-left px-4 py-2 ${
-                        isDark ? 'hover:bg-gray-600 text-gray-200' : 'hover:bg-gray-100 text-gray-700'
-                      } transition-colors`}
+                      className="w-full text-left px-4 py-2 hover:bg-gray-600 text-gray-200 transition-colors"
                     >
                       {model.toUpperCase()}
                     </button>
@@ -109,25 +76,32 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           <div className="flex items-center space-x-4">
-            <div
-              onMouseEnter={handleTaskMouseEnter}
-              onMouseLeave={handleTaskMouseLeave}
-            >
+            <div className="relative">
               <button
-                className={`flex items-center space-x-2 px-3 py-1.5 rounded-md ${
-                  isDark ? 'bg-gray-700 hover:bg-gray-600 text-gray-200' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                } transition-colors`}
+                className="flex items-center space-x-2 px-3 py-1.5 rounded-md bg-gray-700 hover:bg-gray-600 text-gray-200 transition-colors"
               >
                 <CheckSquare className="w-5 h-5" />
                 <span>Tasks</span>
               </button>
+
+              {/* Task Manager Overlay - Always visible */}
+              <div 
+                className="absolute right-0 mt-2 w-96"
+              >
+                <div className="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
+                  <TaskManager 
+                    isExpanded={true} 
+                    onClose={() => {}}
+                    sidebarMode={true}
+                  />
+                </div>
+              </div>
             </div>
 
             <button
-              onClick={toggleTheme}
               className="text-brand-primary hover:text-brand-primary-hover transition-colors"
             >
-              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              <Sun className="w-5 h-5" />
             </button>
 
             <button
@@ -138,9 +112,7 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             <button
-              className={`px-4 py-1.5 rounded-md ${
-                isDark ? 'bg-gray-700 hover:bg-gray-600 text-gray-200' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-              } transition-colors`}
+              className="px-4 py-1.5 rounded-md bg-gray-700 hover:bg-gray-600 text-gray-200 transition-colors"
             >
               Clear Chat
             </button>
@@ -151,25 +123,6 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       </header>
-
-      {/* Task Manager Modal */}
-      {showTaskManager && (
-        <div 
-          className="fixed inset-0 z-50 flex items-start justify-end pt-16"
-          onMouseEnter={handleTaskManagerMouseEnter}
-          onMouseLeave={handleTaskManagerMouseLeave}
-        >
-          <div className={`w-96 h-[calc(100vh-4rem)] rounded-lg shadow-lg ${
-            isDark ? 'bg-gray-900' : 'bg-white'
-          }`}>
-            <TaskManager 
-              isExpanded={true} 
-              onClose={() => setShowTaskManager(false)}
-              sidebarMode={true}
-            />
-          </div>
-        </div>
-      )}
     </>
   );
 };

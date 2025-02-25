@@ -1,45 +1,36 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { theme } from '../theme';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface ThemeContextType {
   isDark: boolean;
   toggleTheme: () => void;
-  theme: typeof theme;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextType>({
+  isDark: true,
+  toggleTheme: () => {},
+});
 
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
-};
+export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isDark, setIsDark] = useState(() => {
-    // Check local storage or system preference
-    const stored = localStorage.getItem('theme');
-    if (stored) {
-      return stored === 'dark';
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
-  });
-
-  useEffect(() => {
-    // Update document class and local storage when theme changes
-    document.documentElement.classList.toggle('dark', isDark);
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  }, [isDark]);
+  // Force dark mode
+  const [isDark, setIsDark] = useState(true);
 
   const toggleTheme = () => {
-    setIsDark(prev => !prev);
+    // Temporarily disable theme toggle
+    return;
   };
 
+  useEffect(() => {
+    // Force dark mode on the document
+    document.documentElement.classList.add('dark');
+  }, []);
+
   return (
-    <ThemeContext.Provider value={{ isDark, toggleTheme, theme }}>
+    <ThemeContext.Provider value={{ isDark, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
 };
+
+export default ThemeProvider;

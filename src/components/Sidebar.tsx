@@ -28,7 +28,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   const { isDark } = useTheme();
   const [isExpanded, setIsExpanded] = useState(true);
   const [activeSection, setActiveSection] = useState<'main' | null>(null);
-  const [isHovered, setIsHovered] = useState(false);
   const [conversations, setConversations] = useState<Conversation[]>([
     {
       id: '1',
@@ -46,33 +45,20 @@ const Sidebar: React.FC<SidebarProps> = ({
     }
   ]);
 
-  // Add delay to prevent immediate closing
-  let sidebarTimeout: NodeJS.Timeout;
-
-  const handleSidebarMouseEnter = () => {
-    clearTimeout(sidebarTimeout);
-    setIsHovered(true);
-    onToggle(); // Open sidebar
-  };
-
-  const handleSidebarMouseLeave = () => {
-    sidebarTimeout = setTimeout(() => {
-      setIsHovered(false);
-      onToggle(); // Close sidebar
-    }, 300);
-  };
+  // Force sidebar to be open by default
+  useEffect(() => {
+    if (!isOpen) {
+      onToggle();
+    }
+  }, []);
 
   return (
     <aside
-      onMouseEnter={handleSidebarMouseEnter}
-      onMouseLeave={handleSidebarMouseLeave}
       className={`fixed inset-y-0 left-0 ${
-        isOpen || isHovered ? 'translate-x-0' : '-translate-x-full'
-      } ${isExpanded ? 'w-64' : 'w-20'} flex flex-col border-r transition-all transform duration-200 ease-in-out ${
-        isDark ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'
-      }`}
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      } ${isExpanded ? 'w-64' : 'w-20'} flex flex-col border-r transition-all transform duration-200 ease-in-out bg-gray-900 border-gray-700`}
     >
-      <div className={`p-4 border-b ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
+      <div className="p-4 border-b border-gray-700">
         <button
           onMouseEnter={() => {
             onMainSessionClick();
@@ -81,9 +67,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           className={`w-full mb-4 flex items-center px-4 py-2 rounded-md transition-colors ${
             activeSection === 'main'
               ? 'bg-[#5A9B91] text-white'
-              : isDark
-              ? 'bg-gray-800 text-gray-200 hover:bg-gray-700'
-              : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+              : 'bg-gray-800 text-gray-200 hover:bg-gray-700'
           }`}
         >
           <MessageSquare className="w-5 h-5 mr-2" />
@@ -100,11 +84,11 @@ const Sidebar: React.FC<SidebarProps> = ({
               }}
               className={`w-full flex items-center justify-between px-3 py-2 rounded-md transition-colors ${
                 activeConversation === conversation.id
-                  ? isDark ? 'bg-gray-800' : 'bg-gray-100'
-                  : isDark ? 'hover:bg-gray-800' : 'hover:bg-gray-50'
+                  ? 'bg-gray-800'
+                  : 'hover:bg-gray-800'
               }`}
             >
-              <div className={`flex items-center ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+              <div className="flex items-center text-gray-300">
                 {conversation.type === 'side' && <GitBranch className="w-4 h-4 mr-2 text-[#5A9B91]" />}
                 {conversation.type === 'child' && <Settings className="w-4 h-4 mr-2 text-[#5A9B91]" />}
                 <span>{conversation.title}</span>
@@ -119,29 +103,21 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         <div className="mt-4 space-y-2">
-          <button className={`w-full flex items-center px-3 py-2 rounded-md ${
-            isDark ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-50'
-          }`}>
+          <button className="w-full flex items-center px-3 py-2 rounded-md text-gray-300 hover:bg-gray-800">
             <Settings className="w-4 h-4 mr-2 text-[#5A9B91]" />
             <span>Packs</span>
-            <span className={`ml-2 text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>(coming soon...)</span>
+            <span className="ml-2 text-xs text-gray-500">(coming soon...)</span>
           </button>
-          <button className={`w-full flex items-center px-3 py-2 rounded-md ${
-            isDark ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-50'
-          }`}>
+          <button className="w-full flex items-center px-3 py-2 rounded-md text-gray-300 hover:bg-gray-800">
             <MessageSquare className="w-4 h-4 mr-2 text-[#5A9B91]" />
             <span>Messenger</span>
-            <span className={`ml-2 text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>(coming soon...)</span>
+            <span className="ml-2 text-xs text-gray-500">(coming soon...)</span>
           </button>
-          <button className={`w-full flex items-center px-3 py-2 rounded-md ${
-            isDark ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-50'
-          }`}>
+          <button className="w-full flex items-center px-3 py-2 rounded-md text-gray-300 hover:bg-gray-800">
             <GitBranch className="w-4 h-4 mr-2 text-[#5A9B91]" />
             <span>Custom Chatbot</span>
           </button>
-          <button className={`w-full flex items-center px-3 py-2 rounded-md ${
-            isDark ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-50'
-          }`}>
+          <button className="w-full flex items-center px-3 py-2 rounded-md text-gray-300 hover:bg-gray-800">
             <Settings className="w-4 h-4 mr-2 text-[#5A9B91]" />
             <span>Family Pack</span>
           </button>
