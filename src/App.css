@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-teal: #5A9B91;
+  --primary-yellow: #F0B43C;
+  --primary-red: #F52D3C;
+  --neutral-50: #F9FAFB;
+  --neutral-100: #F3F4F6;
+  --neutral-200: #E5E7EB;
+  --neutral-300: #D1D5DB;
+  --neutral-400: #9CA3AF;
+  --neutral-500: #6B7280;
+  --neutral-600: #4B5563;
+  --neutral-700: #374151;
+  --neutral-800: #1F2937;
+  --neutral-900: #111827;
+}
+
+/* Base styles */
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  @apply antialiased;
+}
+
+.header {
+  @apply bg-white dark:bg-neutral-800 border-b border-neutral-200 dark:border-neutral-700;
+}
+
+/* Dark mode */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  @apply bg-neutral-900 text-white;
+}
+
+/* Navigation and buttons */
+.nav-button {
+  @apply p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors;
+}
+
+.primary-button {
+  @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+  @apply bg-[#5A9B91] text-white;
+  @apply hover:bg-opacity-90 active:transform active:scale-95;
+}
+
+.secondary-button {
+  @apply px-3 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors;
+}
+
+.send-button {
+  @apply p-2 rounded-lg bg-[#5A9B91] text-white hover:bg-[#4A8A81] disabled:opacity-50 disabled:cursor-not-allowed transition-colors ml-2;
+}
+
+.input-button {
+  @apply p-2 rounded-lg text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors;
+}
+
+.message-action-button {
+  @apply p-1.5 rounded-lg text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors;
+}
+
+/* Message container */
+.message-container {
+  @apply flex-1 overflow-y-auto px-4 py-6;
+  @apply bg-neutral-50 dark:bg-neutral-900;
+  scrollbar-width: thin;
+  scrollbar-color: var(--neutral-300) transparent;
+}
+
+.message-bubble {
+  @apply rounded-2xl p-4 shadow-sm;
+}
+
+.message-bubble.user {
+  @apply bg-[#5A9B91] text-white;
+}
+
+.message-bubble.bot {
+  @apply bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700;
+}
+
+.message-actions {
+  @apply flex items-center gap-1;
+}
+
+/* Input container */
+.input-container {
+  @apply flex items-center gap-1 bg-neutral-100 dark:bg-neutral-700 rounded-lg p-1;
+}
+
+.input-field {
+  @apply flex-1 bg-transparent px-3 py-2 focus:outline-none placeholder-neutral-500;
+}
+
+/* Dropdown styles */
+.dropdown-menu {
+  @apply absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg shadow-lg py-1 min-w-[160px];
+}
+
+.dropdown-item {
+  @apply w-full px-4 py-2 text-left hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors;
+}
+
+/* Animations */
+.animate-slide-in {
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-neutral-300 dark:bg-neutral-600;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-neutral-400 dark:bg-neutral-500;
+}

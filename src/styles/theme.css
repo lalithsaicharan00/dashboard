@@ -1,0 +1,178 @@
+/* Base styles */
+:root {
+  --brand-primary: #5A9B91;
+  --brand-primary-hover: #4A8A81;
+  --brand-secondary: #F0B43C;
+  --brand-danger: #F52D3C;
+}
+
+/* Light theme variables */
+:root {
+  --background-primary: #FFFFFF;
+  --background-secondary: #F8F9FA;
+  --surface-primary: #FFFFFF;
+  --surface-secondary: #F8F9FA;
+  --border: #E9ECEF;
+  --text-primary: #212529;
+  --text-secondary: #6C757D;
+  --text-disabled: #ADB5BD;
+  --hover: #F1F3F5;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --scrollbar-thumb: #ADB5BD;
+  --scrollbar-track: #F8F9FA;
+}
+
+/* Dark theme variables */
+.dark {
+  --background-primary: #1A1B1E;
+  --background-secondary: #25262B;
+  --surface-primary: #25262B;
+  --surface-secondary: #2C2E33;
+  --border: #383A3F;
+  --text-primary: #E9ECEF;
+  --text-secondary: #ADB5BD;
+  --text-disabled: #6C757D;
+  --hover: #383A3F;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --scrollbar-thumb: #383A3F;
+  --scrollbar-track: #25262B;
+}
+
+/* Global styles */
+body {
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+}
+
+/* Main chat area */
+.chat-container {
+  background-color: var(--background-primary);
+}
+
+.chat-messages {
+  background-color: var(--background-primary);
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: var(--surface-primary);
+  border-right: 1px solid var(--border);
+}
+
+.sidebar-item {
+  color: var(--text-primary);
+}
+
+.sidebar-item:hover {
+  background-color: var(--hover);
+}
+
+.sidebar-item.active {
+  background-color: var(--surface-secondary);
+}
+
+/* Header */
+.header {
+  background-color: var(--surface-primary);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 2px var(--shadow);
+}
+
+/* Input area */
+.input-container {
+  background-color: var(--surface-primary);
+  border: 1px solid var(--border);
+}
+
+.input-field {
+  background-color: transparent;
+  color: var(--text-primary);
+}
+
+.input-field::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Buttons and interactive elements */
+.button-primary {
+  background-color: var(--brand-primary);
+  color: white;
+}
+
+.button-primary:hover {
+  background-color: var(--brand-primary-hover);
+}
+
+.button-secondary {
+  background-color: var(--surface-secondary);
+  color: var(--text-primary);
+}
+
+.button-secondary:hover {
+  background-color: var(--hover);
+}
+
+/* Icons */
+.icon {
+  color: var(--text-secondary);
+}
+
+.icon:hover {
+  color: var(--text-primary);
+}
+
+/* Messages */
+.message {
+  background-color: var(--surface-primary);
+  border: 1px solid var(--border);
+}
+
+.message.sent {
+  background-color: var(--brand-primary);
+  color: white;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Popups and modals */
+.popup {
+  background-color: var(--surface-primary);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 6px var(--shadow);
+}
+
+.popup-header {
+  border-bottom: 1px solid var(--border);
+}
+
+/* Notifications */
+.notification {
+  background-color: var(--surface-primary);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+/* Transitions */
+* {
+  transition: background-color 0.2s ease-in-out, 
+              border-color 0.2s ease-in-out, 
+              color 0.2s ease-in-out,
+              box-shadow 0.2s ease-in-out;
+}
